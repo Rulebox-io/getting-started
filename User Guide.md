@@ -18,7 +18,7 @@
       2. [Greater Than](#ruleOperatorGT)
       1. [Greater Than or Equal To](#ruleOperatorGTE)
       2. [Not](#ruleOperatorNot)
-      3. [Any, All, None](#ruleOperatorAnyAllNone)
+      3. [Some, All, None](#ruleOperatorAnyAllNone)
       4. [Is One Of](#ruleOperatorIsOneOf)
       5. [Contains](#ruleOperatorContains)
       6. [Between](#ruleOperatorBetween)
@@ -207,15 +207,15 @@ The 'not' expression returns the inverse of a boolean result.
 { "$not": { "@code": "E" } }
 ```
 
-#### Any, all, none <a name="ruleOperatorAnyAllNone"></a>
+#### Some, all, none <a name="ruleOperatorAnyAllNone"></a>
 These operators test whether some, or all, or none of the elements in a field array match a specified value.
 ##### Format
 ```
-{ "<field name>": { "$any|$all|$none": <predicate_object> } }
+{ "<field name>": { "$some|$all|$none": <predicate_object> } }
 ```
 ##### Examples
 ```
-{ "@tags": { "$any": { "@code": { "$in": ["New", "Used"] } } } }
+{ "@tags": { "$some": { "@code": { "$in": ["New", "Used"] } } } }
 { "@tags": { "$all": { "@code": { "$in": ["New", "Used"] } } } }
 { "@tags": { "$none": { "@code": "Used" } } }
 ```

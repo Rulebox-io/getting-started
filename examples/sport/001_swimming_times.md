@@ -11,32 +11,25 @@ Defines a person object that represents a swimmer including competition entries 
       "entity": 
       { 
         "name": "Text", 
-        "age": "Numer", 
-        "galas":
-          { 
-            "dataType": "Array", 
-            "of": 
-            { 
-                "name": "Text", 
-                "location": "Text", 
-                "date": "DateTime" 
-                "races":
+        "age": "Number", 
+        "race_results":
                 {
                   "dataType": "Array", 
                   "of": 
                   { 
                       "stroke": "Text", 
-                      "length": "Number", 
-                      "time": "Number" 
+                      "length_metres": "Number", 
+                      "time_seconds": "Number" 
                   }
-                }
-            }
-          }  
+                } 
       },
       "rules": 
       [                          
           { 
-              "predicate":{ "@engineCC": { "$gte" : 2000}, "@bodyStyle" : "Estate" },
+              "predicate":
+              { 
+                "@race_results": { "$some": { "@stroke": "Freestyle" } } 
+              },
               "outcome": true,
               "stop": true
           }
@@ -45,13 +38,49 @@ Defines a person object that represents a swimmer including competition entries 
 }
 ```
 
-## Entitie Examples
+## Entity Examples
 ```
-{ "make": "Audi", "model": "A6", "bodyStyle": "Estate",  "engineCC": 2050  }
+{ 
+  "name": "Fred", 
+  "age": 15, 
+  "galas": 
+  [
+    {
+      "location": "Darlington",
+      "date" : "01/01/2022",
+      "races" :
+      [
+        {
+            "stroke": "Freestyle",
+            "length_metres": 50,
+            "time_seconds": 35
+        }
+      ]
+    }
+  ],  
+}
+```
+```
+{ 
+  "name": "Arthur", 
+  "age": 15, 
+  "galas": 
+  [
+    {
+      "location": "Darlington",
+      "date" : "01/01/2022",
+      "races" :
+      [
+        {
+            "stroke": "Freestyle",
+            "length_metres": 50,
+            "time_seconds": 45
+        }
+      ]
+    }
+  ],  
+}
 
-{ "make": "Audi", "model": "A6", "bodyStyle": "Saloon",  "engineCC": 2050  }
-
-{ "make": "Ford", "model": "Focus RS", "bodyStyle": "Hatchback",  "engineCC": 2200  }
 ```
 ## Match Request Example
 ###  Request Body
