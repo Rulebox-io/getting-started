@@ -1,4 +1,4 @@
-# Automotive Example 1
+# RBx Examples Automotive 001
 
 ## Description
 Defines a vehicle object and rule that searchs for an Estate with Engine CC greater than 2000.
