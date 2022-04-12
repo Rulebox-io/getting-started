@@ -4,6 +4,14 @@
 
 ### Automotive
 
+#### 001 Basic Search
+Defines a vehicle object. The rule tests the fuel type equals a value, the year is between two vales and the bodystyle is in a list of provided values.
+
+##### Examples of
+- In
+- Between
+- Equals
+
 ### Sport
 
 #### 001 Swimming and Times
