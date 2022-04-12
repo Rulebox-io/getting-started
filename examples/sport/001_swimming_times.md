@@ -1,95 +1,264 @@
 # RBx Examples - Sport 001, Swimming Times
 
 ## Description
-Defines a person object that represents a swimmer including competition entries and times. The rule check entities for 'Gold' medal times across the different races and age groups.
+Defines a person object that represents a swimmer including competition entries and times. The rules check for ages, length and times in different strokes using a `startsWith` function.
+
+## Examples of
+- startsWith function
+- Less than or equal to
+- Equals
+- Some
 
 ## RuleSet
 ```
 {
-  "ruleset":
-    {
-      "entity": 
-      { 
-        "name": "Text", 
-        "age": "Number", 
-        "race_results":
-                {
-                  "dataType": "Array", 
-                  "of": 
-                  { 
-                      "stroke": "Text", 
-                      "length_metres": "Number", 
-                      "time_seconds": "Number" 
-                  }
-                } 
-      },
-      "rules": 
-      [                          
-          { 
-              "predicate":
-              { 
-                "@race_results": { "$some": { "@stroke": "Freestyle" } } 
-              },
-              "outcome": true,
-              "stop": true
+  "ruleset": {
+    "entity": {
+      "name": "Text",
+      "age": "Number",
+      "galas": {
+        "dataType": "Array",
+        "of": {
+          "date": "DateTime",
+          "races": {
+            "dataType": "Array",
+            "of": {
+              "stroke": "Text",
+              "length_metres": "Number",
+              "time_seconds": "Number"
+            }
           }
-      ]
-    }
+        }
+      }
+    },
+    "rules": [
+      {
+        "predicate": {
+          "@galas": {
+            "$some": {
+              "@races": {
+                "$some": {
+                  "@time_seconds": { "$lte": 40 },
+                  "@length_metres": 50,
+                  "$function": { "name": "startsWith", "arguments": [ "@stroke", "F" ] }
+                }
+              }
+            }
+          },
+          "@age": { "$lte": 10 }          
+        },
+        "outcome": true,
+        "stop": true
+      },
+      {
+        "predicate": {
+          "@galas": {
+            "$some": {
+              "@races": {
+                "$some": {
+                  "@time_seconds": { "$lte": 40 },
+                  "@length_metres": 50,
+                  "$function": { "name": "startsWith", "arguments": [ "@stroke", "B" ] }
+                }
+              }
+            }
+          },
+          "@age": { "$lte": 10 }          
+        },
+        "outcome": true,
+        "stop": true
+      }
+    ]
+  }
 }
 ```
 
-## Entity Examples
+## Entity Example
 ```
-{ 
-  "name": "Fred", 
-  "age": 15, 
-  "galas": 
-  [
-    {
-      "location": "Darlington",
-      "date" : "01/01/2022",
-      "races" :
-      [
+{
+    "name": "Fred",
+    "age": 9,
+    "galas": [
         {
-            "stroke": "Freestyle",
-            "length_metres": 50,
-            "time_seconds": 35
+            "location": "Darlington",
+            "date": "01/01/2022",
+            "races": [
+                {
+                    "stroke": "Butterfly",
+                    "length_metres": 50,
+                    "time_seconds": 20
+                }
+            ]
         }
-      ]
-    }
-  ],  
+    ]
 }
-```
-```
-{ 
-  "name": "Arthur", 
-  "age": 15, 
-  "galas": 
-  [
-    {
-      "location": "Darlington",
-      "date" : "01/01/2022",
-      "races" :
-      [
-        {
-            "stroke": "Freestyle",
-            "length_metres": 50,
-            "time_seconds": 45
-        }
-      ]
-    }
-  ],  
-}
-
 ```
 ## Match Request Example
 ###  Request Body
+```
+{
+    "testobj": {
+        "name": "Fred",
+        "age": 9,
+        "galas": [
+            {
+                "location": "Darlington",
+                "date": "01/01/2022",
+                "races": [
+                    {
+                        "stroke": "Butterfly",
+                        "length_metres": 50,
+                        "time_seconds": 20
+                    }
+                ]
+            }
+        ]
+    }
+}
+```
 ###  Response Body
-
-## Any Request Example
-###  Request Body
-###  Response Body
-
+```
+{
+    "isMatch": true
+}
+```
 ## All Request Example
 ###  Request Body
+```
+{
+    "testobjs": [
+        {
+            "name": "Fred",
+            "age": 9,
+            "galas": [
+                {
+                    "location": "Darlington",
+                    "date": "01/01/2022",
+                    "races": [
+                        {
+                            "stroke": "Butterfly",
+                            "length_metres": 50,
+                            "time_seconds": 20
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Jack",
+            "age": 10,
+            "galas": [
+                {
+                    "location": "Darlington",
+                    "date": "01/01/2022",
+                    "races": [
+                        {
+                            "stroke": "Freestyle",
+                            "length_metres": 50,
+                            "time_seconds": 20
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
+```
 ###  Response Body
+```
+[
+    {
+        "name": "Jack",
+        "age": 10,
+        "galas": [
+            {
+                "date": "1/1/2022 12:00:00 AM",
+                "races": [
+                    {
+                        "stroke": "Freestyle",
+                        "length_metres": 50,
+                        "time_seconds": 20,
+                    },
+                ],
+            },
+        ],
+    },
+    {
+        "name": "Fred",
+        "age": 9,
+        "galas": [
+            {
+                "date": "1/1/2022 12:00:00 AM",
+                "races": [
+                    {
+                        "stroke": "Butterfly",
+                        "length_metres": 50,
+                        "time_seconds": 20,
+                    },
+                ],
+            },
+        ],
+    },
+]
+```
+## First Request Example
+###  Request Body
+```
+{
+    "testobjs": [
+        {
+            "name": "Fred",
+            "age": 9,
+            "galas": [
+                {
+                    "location": "Darlington",
+                    "date": "01/01/2022",
+                    "races": [
+                        {
+                            "stroke": "Butterfly",
+                            "length_metres": 50,
+                            "time_seconds": 20
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Jack",
+            "age": 10,
+            "galas": [
+                {
+                    "location": "Darlington",
+                    "date": "01/01/2022",
+                    "races": [
+                        {
+                            "stroke": "Freestyle",
+                            "length_metres": 50,
+                            "time_seconds": 20
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
+```
+###  Response Body
+```
+{
+    "name": "Fred",
+    "age": 9,
+    "galas": [
+        {
+            "date": "1/1/2022 12:00:00 AM",
+            "races": [
+                {
+                    "stroke": "Butterfly",
+                    "length_metres": 50,
+                    "time_seconds": 20,
+                },
+            ],
+        },
+    ],
+}
+```
