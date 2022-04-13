@@ -10,7 +10,7 @@ Defines a vehicle object. The rule tests the fuel type equals a value, the year 
 - Equals
 
 ## RuleSet
-```
+```json
 {
     "ruleset": {
         "entity": {
@@ -46,7 +46,7 @@ Defines a vehicle object. The rule tests the fuel type equals a value, the year 
 ```
 
 ## Entity Examples
-```
+```json
 {
     "make": "Ford",
     "model": "Fiesta",
@@ -57,7 +57,7 @@ Defines a vehicle object. The rule tests the fuel type equals a value, the year 
 ```
 ## Match Request Example
 ###  Request Body
-```
+```json
 {
     "testobj": {
         "make": "Ford",
@@ -69,14 +69,14 @@ Defines a vehicle object. The rule tests the fuel type equals a value, the year 
 }
 ```
 ###  Response Body
-```
+```json
 {
     "isMatch": false
 }
 ```
 ## All Request Example
 ###  Request Body
-```
+```json
 {
     "testobjs": [
         {
@@ -104,7 +104,7 @@ Defines a vehicle object. The rule tests the fuel type equals a value, the year 
 }
 ```
 ###  Response Body
-```
+```json
 [
     {
         "make": "Ford",
@@ -125,7 +125,7 @@ Defines a vehicle object. The rule tests the fuel type equals a value, the year 
 
 ## First Request Example
 ###  Request Body
-```
+```json
 {
     "testobjs": [
         {
@@ -153,7 +153,7 @@ Defines a vehicle object. The rule tests the fuel type equals a value, the year 
 }
 ```
 ###  Response Body
-```
+```json
 {
     "make": "Ford",
     "model": "Fiesta",

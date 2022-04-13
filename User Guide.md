@@ -24,6 +24,8 @@
       6. [Between](#ruleOperatorBetween)
       7. [Logical And](#ruleOperatorAnd)
       8. [Logical Or](#ruleOperatorOr)
+   2. [Functions](#functions)
+      1. [startsWith](#ruleFunctionStartsWith)
 4. [RuleSet](#ruleSet)
    1. [RBxId](#ruleSetRbxId)
    2. [Version](#ruleSetVersion)
@@ -32,8 +34,8 @@
    1. [Compilation](#apisCompilation)
    2. [Execution](#apisExecution)
       1. [Match](#apisExecutionMatch)
-      1. [All](#apisExecutionAll)
-      1. [First](#apisExecutionFirst)
+      2. [All](#apisExecutionAll)
+      3. [First](#apisExecutionFirst)
 6. [Getting Started](#gettingStarted)
    1. [Define an Entity](#gettingStartedEntity)
    2. [Build some Rules](#gettingStartedRules)
@@ -160,61 +162,61 @@ Tests whether the value of an entities property is less than or equal to the val
 { "<field name>": { "$lte": <rule_test_value> } }
 ```
 ##### Example (number) 
-```
+```json
 { "@age": { "$lte": 25 } }
 ```
 ##### Example (datetime) 
-```
+```json
 { "@dob": { "$lte": "09/01/01" } }
 ```
 #### Greater than <a name="ruleOperatorGT"></a>
 Tests whether the value of an entities property is greater than the value specified in the rule. Can be applied to numbers or dateTimes.
 ##### Format 
-```
+```json
 { "<field name>": { "$gt": <rule_test_value> } }
 ```
 ##### Example (number) 
-```
+```json
 { "@age": { "$gt": 25 } }
 ```
 ##### Example (datetime) 
-```
+```json
 { "@dob": { "$gt": "09/01/01" } }
 ```
 #### Greater than or equal to <a name="ruleOperatorGTE"></a>
 Tests whether the value of an entities property is greater than or equal to the value specified in the rule. Can be applied to numbers or dateTimes.
 ##### Format 
-```
+```json
 { "<field name>": { "$gte": <rule_test_value> } }
 ```
 ##### Example (number) 
-```
+```json
 { "@age": { "$gte": 25 } }
 ```
 ##### Example (datetime) 
-```
+```json
 { "@dob": { "$gte": "09/01/01" } }
 ```
 
 #### Not <a name="ruleOperatorNot"></a>
 The 'not' expression returns the inverse of a boolean result.
 ##### Format
-```
+```json
 { "$not": <boolean_expression> }
 ```
 ##### Example
-```
+```json
 { "$not": { "@code": "E" } }
 ```
 
 #### Some, all, none <a name="ruleOperatorAnyAllNone"></a>
 These operators test whether some, or all, or none of the elements in a field array match a specified value.
 ##### Format
-```
+```json
 { "<field name>": { "$some|$all|$none": <predicate_object> } }
 ```
 ##### Examples
-```
+```json
 { "@tags": { "$some": { "@code": { "$in": ["New", "Used"] } } } }
 { "@tags": { "$all": { "@code": { "$in": ["New", "Used"] } } } }
 { "@tags": { "$none": { "@code": "Used" } } }
@@ -223,11 +225,11 @@ These operators test whether some, or all, or none of the elements in a field ar
 #### Is one of <a name="ruleOperatorIsOneOf"></a>
 This expression tests whether a field value is one of the values in an array.
 ##### Format
-```
+```json
 { "<field name>": { "$in": [<primitive>, <primitive>] } }
 ```
 ##### Example
-```
+```json
 { "@tag": { "$in": ["New", "Used"] } }
 ```
 
@@ -235,18 +237,18 @@ This expression tests whether a field value is one of the values in an array.
 This expression is the inverse of 'is one of' - it tests whether a field's array value contains a specified value. The field value must be an array, the expression tests whether a primitive value is one of the values in a field's array.
 
 ##### Format
-```
+```json
 { "<field name>": { "$contains": <primitive> } }
 ```
 
 ##### Example
-```
+```json
 { "tags": { "$contains": "Sick" } }
 ```
 #### Between <a name="ruleOperatorBetween"></a>
 This expression tests whether a field value is between two specified values (inclusive). Can be applied to numbers or dateTimes.
 ##### Format
-```
+```json
 { "<field name>": { "$between": [<number>, <number>] } }
 ```
 ##### Example
@@ -257,11 +259,11 @@ This expression tests whether a field value is between two specified values (inc
 
 #### Logical and <a name="ruleOperatorAnd"></a>
 ##### Format
-```
+```json
 { "<field name>": <expression>, "<field name>": <expression> [, ...] }
 ```
 ##### Example
-```
+```json
 {
     "@from": { "$gt": 7 },
     "@from": { "$lte": 22 },
@@ -269,11 +271,11 @@ This expression tests whether a field value is between two specified values (inc
 ```
 #### Logical or <a name="ruleOperatorOr"></a>
 ##### Format
-```
+```json
 { "$or": [ <expression> [, <expression> ] ]}
 ```
 ##### Example
-```
+```json
 {
     "$or": [
         { "@code": "E" },
@@ -281,6 +283,28 @@ This expression tests whether a field value is between two specified values (inc
     ]    
 }
 ```
+
+### Functions <a name="functions"></a>
+As well as the standard operators that can be used to build rules RuleBox also includes a number of pre-built functions that can be included in Rules. Functions accept parameters which can be entity properties or an expression.
+
+#### startsWith <a name="ruleFunctionStartsWith"></a>
+Tests whether a string value starts with the specified characters.
+
+Return Type: Boolean
+
+Parameters:
+1. String, the string instance
+2. String, the characters
+
+##### Format
+```json
+{ "$function": { "name": "startsWith", "arguments": [ <string>, <string> ] } }
+```
+##### Example
+```json
+{ "$function": { "name": "startsWith", "arguments": [ "@name", "D" ] } }
+```
+
 
 ## RuleSet <a name="ruleSet"></a>
 A RuleSet includes an entity definition and an associated list of rules, to run rules agaisnt your entities you must first define the entity definition and associated rules as a RuleSet, using your own unique RBxId and Version.
@@ -295,7 +319,7 @@ All RuleSets require a numerical version, specified by the client when it is cre
 If the client creates a draft RuleSet it can only be used if the version number is specified during execution, it won 't be considered the latest version until IsDraft is set to false.
 
 #### Example
-```
+```json
 {
   "ruleset":
   {
@@ -318,14 +342,14 @@ The RBx API consists of a number of endpoints that allow client to create RuleSe
 For more information on the APIs you can view our [Swagger Specification](#https://app-execution-api-prod-uks-001.azurewebsites.net/swagger/index.html).
 
 ###  Compilation <a name="apisCompilation"></a>
-```
+```json
 POST /compilation/{rbxId}/version/{version:int}
 ```
 
 The Compilation API is used define your entity and rules ready for execution.
 
 #### Example Request Body
-```
+```json
 {
   "ruleset":
     {
@@ -359,13 +383,13 @@ POST /execution/{rbxId}/version/{version}/match
 The **Match API** accepts a single entity and returns a boolean value that indicates whether it matches a rule.
 
 ##### Example Request Body
-```
+```json
 {
 "testobj":  { "name": "Dave","age": 43  }
 }
 ```
 ##### Example Response Body
-```
+```json
 {
     "isMatch": true
 }
@@ -379,7 +403,7 @@ POST /execution/{rbxId}/version/{version}/all
 The **All API** accepts an array of entites and returns a filtered array where rule matches are found.
 
 ##### Example Request Body
-```
+```json
 {
 "testobjs": [
     { "name": "John","age": 15, "country":"UK"  },
@@ -389,7 +413,7 @@ The **All API** accepts an array of entites and returns a filtered array where r
 }
 ```
 ##### Example Response Body
-```
+```json
 [
     {
         "name": "Dave",
@@ -412,7 +436,7 @@ POST /execution/{rbxId}/version/{version}/first
 The **First API** accepts an array of entites and returns the first entity from the array that matches a rule.
 
 ##### Example Request Body
-```
+```json
 {
 "testobjs": [
     { "name": "John","age": 15, "country":"UK"  },
@@ -422,7 +446,7 @@ The **First API** accepts an array of entites and returns the first entity from 
 }
 ```
 ##### Example Response Body
-```
+```json
 {
     "name": "Dave",
     "age": 21,
@@ -437,7 +461,7 @@ Define a person entity with 3 properties
 - age (number)
 - country (text)
 
-```
+```json
 { "name": "Text", "age": "Number", "country": "Text"  }
 ```
 
@@ -445,18 +469,18 @@ Define a person entity with 3 properties
 We're going to build two rules to check for peoples ages in different countries.
 
 The first rule will test for people aged 18 and over in the UK
-```
+```json
 { "@age": { "$gte" : 18}, "@country" : "UK" }
 ```
 
 The second will test for people aged 21 and over in the USA
-```
+```json
 { "@age": { "$gte" : 21}, "@country" : "USA" }
 ```
 
 ### Create a Ruleset <a name="gettingStartedRuleset"></a>
 Compine the entity definition and rules into an RBx Ruleset.
-```
+```json
 {
   "ruleset":
     {
@@ -486,11 +510,11 @@ For more information on the APIs you can view our [Swagger Specification](#https
 
 ### Test the Entity objects <a name="gettingStartedTest"></a>
 Once you've created your RuleSet you can start testing entities. First we'll create an entity that matches your entity definition.
-```
+```json
 { "name": "Frank", "age": 21, "country":"USA"  }
 ```
 Then create a request body for the execution match API.
-```
+```json
 {
 "testobj": 
     { "name": "Frank", "age": 21, "country":"USA"  }
@@ -503,19 +527,19 @@ Use the RBxId and Version from the execution API call to call the match API.
 For more information on the APIs you can view our [Swagger Specification](#https://app-execution-api-prod-uks-001.azurewebsites.net/swagger/index.html).
 
 You should see the response below returned from the API.
-```
+```json
 {
     "isMatch": true
 }
 ```
 If you give the age property of the entity a value of 10 and call the match API again you should see a different response.
-```
+```json
 {
     "isMatch": false
 }
 ```
 Next lets create some more entities and add them to a request object for the execution all API.
-```
+```json
 {
 "testobjs": [
     { "name": "Dave", "age": 21, "country":"USA"  },
@@ -532,7 +556,7 @@ Use the RBxId and Version from the execution API call to call the execution all 
 For more information on the APIs you can view our [Swagger Specification](#https://app-execution-api-prod-uks-001.azurewebsites.net/swagger/index.html).
 
 You should see the response below returned from the API.
-```
+```json
 [
     {
         "name": "Dave",

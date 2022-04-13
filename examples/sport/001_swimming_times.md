@@ -10,7 +10,7 @@ Defines a person object that represents a swimmer including competition entries 
 - Some
 
 ## RuleSet
-```
+```json
 {
   "ruleset": {
     "entity": {
@@ -74,7 +74,7 @@ Defines a person object that represents a swimmer including competition entries 
 ```
 
 ## Entity Example
-```
+```json
 {
     "name": "Fred",
     "age": 9,
@@ -95,7 +95,7 @@ Defines a person object that represents a swimmer including competition entries 
 ```
 ## Match Request Example
 ###  Request Body
-```
+```json
 {
     "testobj": {
         "name": "Fred",
@@ -117,14 +117,14 @@ Defines a person object that represents a swimmer including competition entries 
 }
 ```
 ###  Response Body
-```
+```json
 {
     "isMatch": true
 }
 ```
 ## All Request Example
 ###  Request Body
-```
+```json
 {
     "testobjs": [
         {
@@ -165,7 +165,7 @@ Defines a person object that represents a swimmer including competition entries 
 }
 ```
 ###  Response Body
-```
+```json
 [
     {
         "name": "Jack",
@@ -203,7 +203,7 @@ Defines a person object that represents a swimmer including competition entries 
 ```
 ## First Request Example
 ###  Request Body
-```
+```json
 {
     "testobjs": [
         {
@@ -244,7 +244,7 @@ Defines a person object that represents a swimmer including competition entries 
 }
 ```
 ###  Response Body
-```
+```json
 {
     "name": "Fred",
     "age": 9,
