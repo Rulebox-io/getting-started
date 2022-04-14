@@ -25,7 +25,14 @@
       7. [Logical And](#ruleOperatorAnd)
       8. [Logical Or](#ruleOperatorOr)
    2. [Functions](#functions)
-      1. [startsWith](#ruleFunctionStartsWith)
+      1. [Starts with](#ruleFunctionStartsWith)
+      1. [To uppercase](#ruleFunctionToUpperCase)
+      1. [Substring](#ruleFunctionSubStr)
+      1. [Squareroot](#ruleFunctionSqrt)
+      1. [Min](#ruleFunctionMin)
+      1. [Max](#ruleFunctionMax)
+      1. [Average](#ruleFunctionAvg)
+      2. [Years from now](#ruleFunctionYearsFromNow)
 4. [RuleSet](#ruleSet)
    1. [RBxId](#ruleSetRbxId)
    2. [Version](#ruleSetVersion)
@@ -287,10 +294,10 @@ This expression tests whether a field value is between two specified values (inc
 ### Functions <a name="functions"></a>
 As well as the standard operators that can be used to build rules RuleBox also includes a number of pre-built functions that can be included in Rules. Functions accept parameters which can be entity properties or an expression.
 
-#### startsWith <a name="ruleFunctionStartsWith"></a>
+#### Starts with <a name="ruleFunctionStartsWith"></a>
 Tests whether a string value starts with the specified characters.
 
-Return Type: Boolean
+Returns: Boolean
 
 Parameters:
 1. String, the string instance
@@ -305,6 +312,126 @@ Parameters:
 { "$function": { "name": "startsWith", "arguments": [ "@name", "D" ] } }
 ```
 
+#### To uppercase <a name="ruleFunctionToUpperCase"></a>
+Converts a given string to uppercase
+
+Returns: String
+
+Parameters:
+1. String, the string to convert
+
+##### Format
+```json
+{ "$function": { "name": "toUpperCase", "arguments": [ <string> ] } }
+```
+##### Example
+```json
+{ "$function": { "name": "toUpperCase", "arguments": [ "@name" ] } }
+```
+
+#### Substring <a name="ruleFunctionSubStr"></a>
+Extracts a substring from a provided string.
+
+Returns: String
+
+Parameters:
+1. String, the string to convert
+2. Integer, the start index of the substring
+3. Integer, the length of the substring
+
+##### Format
+```json
+{ "$function": { "name": "subStr", "arguments": [ <string>, <integer>, <integer> ] } }
+```
+##### Example
+```json
+{ "$function": { "name": "subStr", "arguments": [ "@name", 5, 5 ] } }
+```
+
+#### Square Root <a name="ruleFunctionSqrt"></a>
+Calculates the square root of a provided number.
+
+Returns: Number
+
+Parameters:
+1. Number, the number for the calculation
+
+##### Format
+```json
+{ "$function": { "name": "sqrt", "arguments": [ <number> ] } }
+```
+##### Example
+```json
+{ "$function": { "name": "sqrt", "arguments": [ 3 ] } }
+```
+
+#### Min <a name="ruleFunctionMin"></a>
+Returns the minimum value from an array of numbers.
+
+Returns: Number
+
+Parameters:
+1. Number Array, the array to query.
+
+##### Format
+```json
+{ "$function": { "name": "min", "arguments": [ <number array> ] } }
+```
+##### Example
+```json
+{ "$function": { "name": "min", "arguments": [ @grades ] } }
+```
+
+#### Max <a name="ruleFunctionMax"></a>
+Returns the maximum value from an array of numbers.
+
+Returns: Number
+
+Parameters:
+1. Number Array, the array to query.
+
+##### Format
+```json
+{ "$function": { "name": "max", "arguments": [ <number array> ] } }
+```
+##### Example
+```json
+{ "$function": { "name": "max", "arguments": [ @grades ] } }
+```
+
+#### Average <a name="ruleFunctionAvg"></a>
+Returns the average value from an array of numbers.
+
+Returns: Number
+
+Parameters:
+1. Number Array, the array to query.
+
+##### Format
+```json
+{ "$function": { "name": "avg", "arguments": [ <number array> ] } }
+```
+##### Example
+```json
+{ "$function": { "name": "avg", "arguments": [ @grades ] } }
+```
+
+#### Years from now <a name="ruleFunctionYearsFromNow"></a>
+Calculates the number of years between a provided date and the current date.
+
+Returns: Number
+
+Parameters:
+1. Date, the date to query.
+
+##### Format
+```json
+{ "$function": { "name": "getYearsFromNow", "arguments": [ <date> ] } }
+```
+##### Example
+```json
+{ "$function": { "name": "getYearsFromNow", "arguments": [ @dob ] } }
+```
 
 ## RuleSet <a name="ruleSet"></a>
 A RuleSet includes an entity definition and an associated list of rules, to run rules agaisnt your entities you must first define the entity definition and associated rules as a RuleSet, using your own unique RBxId and Version.
