@@ -22,3 +22,13 @@ Defines a person object that represents a swimmer including competition entries 
 - Less than or equal to
 - Equals
 - Some
+
+### Business Process
+
+#### 001 Max Execution Time
+Defines a business process and array of historic execution times, the rule checks whether the execution time is greater than the maximum historic execution times.
+
+## Examples of
+- Min Function
+- Greater than
+- Number Array
