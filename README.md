@@ -12,7 +12,7 @@ Defines a vehicle object. The rule tests the fuel type equals a value, the year 
 - Between
 - Equals
 
-### Sport
+### People
 
 #### 001 Swimming and Times
 Defines a person object that represents a swimmer including competition entries and times. The rules check for ages, length and times in different strokes using a `startsWith` function.
@@ -22,6 +22,13 @@ Defines a person object that represents a swimmer including competition entries 
 - Less than or equal to
 - Equals
 - Some
+
+#### 002 Name
+Defines a person object, the rules look for a person with a last name of *Smith* where the first name is not *John*.
+
+## Examples of
+- Equals
+- Not
 
 ### Business Process
 
