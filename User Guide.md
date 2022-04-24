@@ -57,7 +57,7 @@ A RuleBox entity is a client defined object that RBx rules test agaisnt. It is m
 
 Entities are defined as JSON, for example
 
-```
+```json
 { "name": "Text","age": "Number" ,"height": "Number"  }
 ```
 
@@ -73,50 +73,50 @@ Currently RuleBox supports the primitive data types listed below.
 #### Text <a name="entityPropertyTypeText"></a>
 Defines a string value.
 ##### Example Definition
-```
+```json
 { "name": "Text" }
 ```
 
 #### Number <a name="entityPropertyTypeNumber"></a>
 Defines a numerical value, there is no distinction betweeen integers and decimal.
 ##### Example Definition
-```
+```json
 { "age": "Number" ,"height": "Number" }
 ```
 
 #### DateTime <a name="entityPropertyTypeDateTime"></a>
 Defines a datetime value.
 ##### Example Definition
-```
+```json
 { "dob": "DateTime" }
 ```
 
 #### Boolean <a name="entityPropertyTypeBoolean"></a>
 Defines a boolean value.
 ##### Example Definition
-```
+```json
 { "hasMot": "Boolean" }
 ```
 
 #### Entities <a name="entityPropertyTypeEntity"></a>
 Defines an entity value.
 ##### Example Definition
-```
+```json
 { "name": "Text", "house": { "Number": "Number", "Street": "Text" }}
 ```
 
 #### Arrays <a name="entityPropertyTypeArray"></a>
 An array defines a collection of primitive types or entities, nested arrays are also supported.
 ##### Example Definition (primitive type, text)
-```
+```json
  { "names": { "dataType": "Array", "of": "Text"}}
 ```
 ##### Example Definition (entity)
-```
+```json
   { "children": { "dataType": "Array", "of": { "Name": "Text", "Age": "Number" }}}
 ```
 ##### Example Definition (nested array)
-```
+```json
   { "grandchildren": { "dataType": "Array", "of": { "dataType": "Array", "of":  { "dataType": "Array", "of": { "name": "Text" }} }}}
 ```
 
@@ -129,43 +129,43 @@ RuleBox supports a number of operators which can be used to build rules.
 #### Equals <a name="ruleOperatorEquals"></a>
 Tests whether the value of an entities property is equal to the value specified in the rule.
 ##### Format 
-```
+```json
 { "<field name>": <rule_test_value> }
 ```
 ##### Example (text) 
-```
+```json
 { "@name": "Rick" }
 ```
 ##### Example (number) 
-```
+```json
 { "@age": 25 }
 ```
 ##### Example (datetime) 
-```
+```json
 { "@dob": "09/01/01" }
 ```
 ##### Example (boolean) 
-```
+```json
 { "@hasMot": true }
 ```
 #### Less than <a name="ruleOperatorLT"></a>
 Tests whether the value of an entities property is less than the value specified in the rule. Can be applied to numbers or dateTimes.
 ##### Format 
-```
+```json
 { "<field name>": { "$lt": <rule_test_value> } }
 ```
 ##### Example (number) 
-```
+```json
 { "@age": { "$lt": 25 } }
 ```
 ##### Example (datetime) 
-```
+```json
 { "@dob": { "$lt": "09/01/01" } }
 ```
 #### Less than or equal to <a name="ruleOperatorLTE"></a>
 Tests whether the value of an entities property is less than or equal to the value specified in the rule. Can be applied to numbers or dateTimes.
 ##### Format 
-```
+```json
 { "<field name>": { "$lte": <rule_test_value> } }
 ```
 ##### Example (number) 
