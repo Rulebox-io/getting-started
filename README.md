@@ -3,7 +3,7 @@
 ## Introduction <a name="introduction"></a>
 RuleBox is a SaaS Solution that allows you to create and execute business rules agaisnt your own entities objects. Use the RBx APIs to describe your entities and author rules, creating an RBx RuleSet. When you're ready you can pass entity objects to our APIs and we'll run tests agaisnt them using your RuleSet.
 
-This repo contains our **[User Guide](examples/User_Guide.md)** and examples to help you get started creating your own rules.
+This repo contains our **[User Guide](User_Guide.md)** and examples to help you get started creating your own rules.
 
 You can also view our [Open API definition](https://app-execution-api-prod-uks-001.azurewebsites.net/swagger/index.html) or visit our [website](https://rulebox.io/) for more information or to register your interest and to get early access. Feel free to reach out to discuss your requirements and find out how RuleBox can help you.
 
