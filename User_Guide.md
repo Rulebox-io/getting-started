@@ -49,6 +49,9 @@
    3. [Create a Ruleset](#gettingStartedRuleset)
    4. [Test the Entity objects](#gettingStartedTest)
 
+## Introduction <a name="introduction"></a>
+RuleBox is a SaaS Solution that allows you to create and execute business rules agaisnt your own entities objects. Use the RBx APIs to describe your entities and author rules, creating an RBx RuleSet. When you're ready you can pass entity objects to our APIs and we'll test them using your RuleSet.
+
 ## Entity <a name="entity"></a>
 A RuleBox entity is a client defined object that RBx rules test agaisnt. It is made up of properties that are either primitive values,  entities themselves or an array.
 
