@@ -13,9 +13,7 @@ Defines a vehicle object. The rule tests the fuel type equals a value, the year 
 - Equals
 
 ### People
-
-[Test](examples/people/001_swimming_times.md)
-#### 001 Swimming and Times
+#### 001 Swimming and Times ([view](examples/people/001_swimming_times.md))
 Defines a person object that represents a swimmer including competition entries and times. The rules check for ages, length and times in different strokes using a `startsWith` function.
 
 ##### Examples of
