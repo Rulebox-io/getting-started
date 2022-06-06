@@ -1,4 +1,4 @@
-# RBx Examples - Sport 001, Swimming Times
+# RBx Examples - People 001, Swimming Times
 
 ## Description
 Defines a person object that represents a swimmer including competition entries and times. The rules check for ages, length and times in different strokes using a `startsWith` function.

@@ -12,7 +12,7 @@ You can also view our [Open API definition](https://app-execution-api-prod-uks-0
 ### Automotive
 
 #### 001 Basic Search ([view](examples/automotive/001_basic_search.md))
-Defines a vehicle object. The rule tests the fuel type equals a value, the year is between two vales and the bodystyle is in a list of provided values.
+Defines a vehicle object. The rule tests the fuel type equals a value, the year is between two values and the bodystyle is in a list of provided values.
 
 ##### Examples of
 - In
